@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import Authentification from './src/screens/Authentification';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      <Authentification />
     </View>
   );
 }

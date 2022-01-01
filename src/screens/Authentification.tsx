@@ -1,31 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import ButtonComponent from '../components/Button';
 
+interface IStep {
+    handleStep: any
+}
+
 export default function Authentification() {
+    const [step, setStep] = useState(0)
+
+    const handleStep = useCallback((newStep: number) =>() => {
+        setStep(newStep)
+        return null
+    }, []) 
+
   return (
     <View style={styles.container}>
-
       <StatusBar style="auto" />
+      {step==0 && <Welcome handleStep={handleStep} />}
+      {step==1 && <LogIn handleStep={handleStep} />}
+      {step==2 && <SignUp handleStep={handleStep} />}
     </View>
   );
 }
 
-const Welcome = () => {
+const Welcome: FC<IStep> = ({
+    handleStep
+}) => {
     return (
         <View>
             <View>
                 <Text>Welcome</Text>
-                <ButtonComponent onPress={() => null} title='Log In' />
-                <ButtonComponent onPress={() => null} title='Sign Up' />
+                <ButtonComponent onPress={handleStep(1)} title='Log In' />
+                <ButtonComponent onPress={handleStep(2)} title='Sign Up' />
             </View>
             <ButtonComponent onPress={() => null} title='No, thanks' />
         </View>
     );
 }
 
-const SignUp = () => {
+const SignUp: FC<IStep> = ({
+    handleStep
+}) => {
     return (
         <View>
             <View>
@@ -41,12 +58,14 @@ const SignUp = () => {
                 <TextInput />
             </View>
             <ButtonComponent onPress={() => null} title='Sign Up' />
-            <ButtonComponent onPress={() => null} title='Log In' />
+            <ButtonComponent onPress={handleStep(1)} title='Log In' />
         </View>
     )
 }
 
-const LogIn = () => {
+const LogIn: FC<IStep> = ({
+    handleStep
+}) => {
     return (
         <View>
             <View>
@@ -56,7 +75,7 @@ const LogIn = () => {
                 <TextInput />
             </View>
             <ButtonComponent onPress={() => null} title='Log In' />
-            <ButtonComponent onPress={() => null} title='Sign Up' />
+            <ButtonComponent onPress={handleStep(2)} title='Sign Up' />
         </View>
     )
 }

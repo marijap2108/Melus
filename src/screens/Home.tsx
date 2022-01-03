@@ -1,13 +1,8 @@
 import React, { FC, ReactElement, useState } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
 import ButtonComponent from '../components/Button';
 import MusicGroup from '../components/MusicGroup';
 import NavBar from '../components/NavBar';
-
-interface IHome {
-    children: ReactElement[]
-}
-
 interface ISong {
     songId: string,
     songTitle: string,
@@ -21,9 +16,7 @@ interface IMusicGroup {
   songs: ISong[]
 }
 
-const Home: FC<IHome> = ({
-    children
-}) => {
+const Home = () => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
 
   return (
@@ -32,7 +25,7 @@ const Home: FC<IHome> = ({
          <Image
            source={{uri: ''}}
          />
-         Welcome
+         <Text>Welcome</Text>
          <ButtonComponent title='⚙' onPress={() => null} />
          </View>
         {musicGroups.map((musicGroup, index) => (

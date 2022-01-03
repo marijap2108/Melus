@@ -1,13 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import Authentification from './src/screens/Authentification';
+import React, { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
+import Authentication from './src/screens/Authentication';
+import Home from './src/screens/Home';
 
 export default function App() {
+
+  const [screen, setScreen] = useState('home')
+  
+  useEffect(() => {
+    AsyncStorage.getItem(
+      'initial'
+    ).then((value) => {
+      if (!value) {
+        setScreen('authentication')
+      }
+    });
+  }, [])
+
+  const handleSetScreen = useCallback((newScreen) => {
+    setScreen(newScreen)
+  }, [])
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Authentification />
+      {screen === 'authentication' && <Authentication setScreen={handleSetScreen} />}
+      {screen === 'home' && <Home />}
     </View>
   );
 }

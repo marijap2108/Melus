@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, Button } from 'react-native';
 
 interface IButton {
-    onPress: () => null,
+    onPress: () => null | void,
     title: string,
     disabled?: boolean
 }

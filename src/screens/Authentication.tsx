@@ -1,32 +1,51 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { FC, useCallback, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, TextInput, View } from 'react-native';
 import ButtonComponent from '../components/Button';
+
+interface IAuthentication {
+    setScreen: (screen: string) => void
+}
 
 interface IStep {
     handleStep: any
+    setInitial: () => void
 }
 
-export default function Authentification() {
+const Authentication: FC<IAuthentication> = ({
+    setScreen
+}) => {
     const [step, setStep] = useState(0)
 
-    const handleStep = useCallback((newStep: number) =>() => {
+    const handleStep = useCallback((newStep: number) => () => {
         setStep(newStep)
-        return null
     }, []) 
+
+    const setInitial = useCallback(() => {
+        setScreen('main')
+        try {
+            AsyncStorage.setItem(
+                'initial',
+                '1'
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    }, [])
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      {step==0 && <Welcome handleStep={handleStep} />}
-      {step==1 && <LogIn handleStep={handleStep} />}
-      {step==2 && <SignUp handleStep={handleStep} />}
+      {step==0 && <Welcome handleStep={handleStep} setInitial={setInitial} />}
+      {step==1 && <LogIn handleStep={handleStep} setInitial={setInitial}/>}
+      {step==2 && <SignUp handleStep={handleStep} setInitial={setInitial}/>}
     </View>
   );
 }
 
 const Welcome: FC<IStep> = ({
-    handleStep
+    handleStep,
+    setInitial
 }) => {
     return (
         <View>
@@ -35,20 +54,21 @@ const Welcome: FC<IStep> = ({
                 <ButtonComponent onPress={handleStep(1)} title='Log In' />
                 <ButtonComponent onPress={handleStep(2)} title='Sign Up' />
             </View>
-            <ButtonComponent onPress={() => null} title='No, thanks' />
+            <ButtonComponent onPress={setInitial} title='No, thanks' />
         </View>
     );
 }
 
 const SignUp: FC<IStep> = ({
-    handleStep
+    handleStep,
+    setInitial
 }) => {
     return (
         <View>
             <View>
                 <Text>Username:</Text>
                 <TextInput />
-                <Text>Datum rodjenja:</Text>
+                <Text>Date of birth:</Text>
                 <TextInput />
                 <Text>E-mail:</Text>
                 <TextInput />
@@ -59,12 +79,14 @@ const SignUp: FC<IStep> = ({
             </View>
             <ButtonComponent onPress={() => null} title='Sign Up' />
             <ButtonComponent onPress={handleStep(1)} title='Log In' />
+            <ButtonComponent onPress={setInitial} title='No, thanks' />
         </View>
     )
 }
 
 const LogIn: FC<IStep> = ({
-    handleStep
+    handleStep,
+    setInitial
 }) => {
     return (
         <View>
@@ -76,9 +98,12 @@ const LogIn: FC<IStep> = ({
             </View>
             <ButtonComponent onPress={() => null} title='Log In' />
             <ButtonComponent onPress={handleStep(2)} title='Sign Up' />
+            <ButtonComponent onPress={setInitial} title='No, thanks' />
         </View>
     )
 }
+
+export default Authentication
 
 const styles = StyleSheet.create({
   container: {

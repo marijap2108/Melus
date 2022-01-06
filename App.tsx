@@ -26,7 +26,7 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       {screen === 'authentication' && <Authentication setScreen={handleSetScreen} />}
-      {screen === 'home' && <Home />}
+      {screen === 'home' && <Home setScreen={handleSetScreen} />}
     </View>
   );
 }

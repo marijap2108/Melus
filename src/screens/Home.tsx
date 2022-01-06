@@ -1,23 +1,32 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useCallback, useState } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import ButtonComponent from '../components/Button';
 import MusicGroup from '../components/MusicGroup';
 import NavBar from '../components/NavBar';
+
+interface IHome {
+  setScreen: (screen: string) => void
+}
 interface ISong {
     songId: string,
     songTitle: string,
     artist: string,
     image: string
 }
-
 interface IMusicGroup {
   id: string,
   title: string,
   songs: ISong[]
 }
 
-const Home = () => {
+const Home: FC<IHome> = ({
+  setScreen
+}) => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
+
+  const setAuthenticationScreen = useCallback (() => {
+    setScreen('authentication')
+  },[])
 
   return (
      <View style={styles.Home}>
@@ -45,7 +54,7 @@ const Home = () => {
           title="Search"
         />
         <ButtonComponent
-          onPress={() => null}
+          onPress={setAuthenticationScreen}
           title="Profile"
         />
       </NavBar>

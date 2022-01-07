@@ -1,9 +1,10 @@
-import { MongoClient } from "https://deno.land/x/mongo@v0.29.0/mod.ts";
+import { Database, MongoDBConnector } from 'https://deno.land/x/denodb/mod.ts';
 
-const client = new MongoClient();
+const connector = new MongoDBConnector({
+  uri: 'mongodb://127.0.0.1:27017',
+  database: 'Melus',
+});
 
-await client.connect("mongodb+srv://petrovicmarija:rasa0037@cluster0.qhsxn.mongodb.net/Melus?authMechanism=SCRAM-SHA-1");
-
-const db = client.database('Melus');
+const db = new Database(connector);
 
 export default db;

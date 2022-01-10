@@ -34,7 +34,10 @@ const Home: FC<IHome> = ({
          <Image
            source={{uri: ''}}
          />
-         <Text>Welcome</Text>
+         <Text>
+           Welcome to MELUS!
+           Find your sound! 
+         </Text>
          <ButtonComponent title='⚙' onPress={() => null} />
          </View>
         {musicGroups.map((musicGroup, index) => (

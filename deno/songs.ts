@@ -3,11 +3,12 @@ import Song from './models/Song.ts'
 
 db.link([Song])
 
-export const getSongs = async (req: any) => {
-  const key = req.query.get('key')
-  const value = req.query.get('value')
+export const getSongs = async (ctx: any) => {
+  const key = ctx.request.url.searchParams.get('key')
+  const value = ctx.request.url.searchParams.get('value')
 
   const songs = await Song.where({ [key]: value }).get()
 
-  await req.respond({body: JSON.stringify(songs), status: 200})
+  ctx.response.status = 200
+  ctx.response.body = JSON.stringify(songs)
 }

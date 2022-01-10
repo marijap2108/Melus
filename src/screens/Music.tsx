@@ -2,9 +2,6 @@ import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import ButtonComponent from '../components/Button';
-import TrackPlayer, {
-
-} from 'react-native-'
 
 interface IMusic {
   setScreen: (screen: string) => void

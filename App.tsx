@@ -1,22 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
-import Authentication from './src/screens/Authentication';
-import Home from './src/screens/Home';
+import { StatusBar } from 'expo-status-bar'
+import React, { useCallback, useEffect, useState } from 'react'
+import { StyleSheet, View, Text } from 'react-native'
+import Authentication from './src/screens/Authentication'
+import Home from './src/screens/Home'
+//import SoundPlayer from 'react-native-sound-player'
+
+interface IUser {
+  _id: string,
+  username: string,
+  email: string,
+  dateOfBirth: string
+}
 
 export default function App() {
 
   const [screen, setScreen] = useState('home')
-  
-  useEffect(() => {
-    AsyncStorage.getItem(
-      'initial'
-    ).then((value) => {
-      if (!value) {
-        setScreen('authentication')
-      }
-    });
+  const [user, setUser] = useState<IUser | null>(null)
+
+  const handleSetUser = useCallback((newUser) => {
+    console.log(newUser)
+    setUser(newUser)
   }, [])
+
+  // useEffect(() => {
+  //   try {
+  //     SoundPlayer.playSoundFile('Circles', 'mp3')
+  //   } catch (e) {
+  //     console.log(`cannot play the sound file`, e)
+  //   }
+  // }, [])
 
   const handleSetScreen = useCallback((newScreen) => {
     setScreen(newScreen)
@@ -25,7 +37,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      {screen === 'authentication' && <Authentication setScreen={handleSetScreen} />}
+      <Text>{user?.username}</Text>
+      {screen === 'authentication' && <Authentication setScreen={handleSetScreen} setUser={handleSetUser} />}
       {screen === 'home' && <Home setScreen={handleSetScreen} />}
     </View>
   );

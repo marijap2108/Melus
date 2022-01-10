@@ -1,32 +1,32 @@
-import { createApp, createRouter } from "https://deno.land/x/servest@v1.3.4/mod.ts"
+import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
+
 import { getUser, postUser, putUser } from './user.ts'
 import { getSongs } from './songs.ts'
 
-const app = createApp()
+const app = new Application();
 
-function UserRoutes () {
-  const router = createRouter()
-  router.get("/", (req) => {
-    return getUser(req)
-  })
-  router.post("/", (req) => {
-     return postUser(req)
-  })
-  router.put("/", (req) => {
-    return putUser(req)
-  })
-  return router;
-}
+const router = new Router();
 
-function SongsRouter () {
-  const router = createRouter()
-  router.get("/", (req) => {
-    return getSongs(req)
-  })
-  return router;
-}
+router
+  .get("/api/user", getUser)
+  .post("/api/user", postUser)
+  .put("/api/user", putUser)
+  .get("/api/songs", getSongs)
+  .get("/api", (ctx) => ctx.response.body = "uso")
 
-app.route("/api/user", UserRoutes());
-app.route("/api/songs", SongsRouter());
+app.use(
+  oakCors({
+    origin: "*"
+  }),
+);
 
-app.listen({ port: 8000 });
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+app.listen({ 
+  port: 8000, 
+  // secure: true, 
+  // certFile: './localhost.pem', 
+  // keyFile: './localhost-key.pem' 
+});

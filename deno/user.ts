@@ -4,32 +4,36 @@ import User from './models/User.ts'
 
 db.link([User])
 
-export const getUser = async (req: any) => {
-  const username = req.query.get('username')
-  const password = req.query.get('password')
+export const getUser = async (ctx: any) => {
+  const email = ctx.request.url.searchParams.get('email')
+  const password = ctx.request.url.searchParams.get('password')
 
-  const user = await User.where({ username: username, password: password }).first()
+  const user = await User.where({ email: email, password: password }).first()
 
-  await req.respond({body: JSON.stringify(user), status: 200})
+  ctx.response.status = 200
+  ctx.response.body = JSON.stringify(user)
 }
 
-export const postUser = async (req: any) => {
-  const bodyJson = (await req.json());
+export const postUser = async (ctx: any) => {
+  const { value } = ctx.request.body({ type: 'json' });
+  const { username, email, password, dateOfBirth } = await value;
 
   const user = new User()
-  user.username = bodyJson.username
-  user.email = bodyJson.email
-  user.password = bodyJson.password
-  user.dateOfBirth = bodyJson.dateOfBirth
+  user.username = username
+  user.email = email
+  user.password = password
+  user.dateOfBirth = parseInt(dateOfBirth)
   await user.save();
 
-  await req.respond({body: JSON.stringify(user), status: 200})
+  ctx.response.status = 200
+  ctx.response.body = JSON.stringify(user)
 }
 
-export const putUser = async (req: any) => {
-  const bodyJson = (await req.json());
+export const putUser = async (ctx: any) => {
+  const { value } = ctx.request.body({ type: 'json' });
+  const { id, username } = await value;
 
-  await User.where('_id', `${new Bson.ObjectId(bodyJson.id)}`).update({ username: bodyJson.username });
+  User.where('_id', `${new Bson.ObjectId(id)}`).update({ username: username });
 
-  await req.respond({status: 202})  
+  ctx.response.status = 202
 }

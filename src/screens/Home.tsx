@@ -1,17 +1,20 @@
-import React, { FC, ReactElement, useCallback, useState } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import ButtonComponent from '../components/Button';
+import React, { FC, useCallback, useState, useEffect } from 'react';
+import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
 import MusicGroup from '../components/MusicGroup';
-import NavBar from '../components/NavBar';
+import Svg from '../components/Svg'
+import axios from 'axios'
 
 interface IHome {
-  setScreen: (screen: string) => void
+  setScreen: (screen: string) => void,
+  setCurSong: (curSong: ISong) => void
 }
 interface ISong {
-    songId: string,
-    songTitle: string,
-    artist: string,
-    image: string
+  _id: string,
+  title: string,
+  artist: string,
+  artwork: string,
+  album: string,
+  duration: number
 }
 interface IMusicGroup {
   id: string,
@@ -20,58 +23,61 @@ interface IMusicGroup {
 }
 
 const Home: FC<IHome> = ({
-  setScreen
+  setScreen,
+  setCurSong
 }) => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
 
-  const setAuthenticationScreen = useCallback (() => {
-    setScreen('authentication')
-  },[])
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/initial`)
+      .then((response) => {
+        setMusicGroups(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
 
   return (
-     <View style={styles.Home}>
-        <View style={styles.Home}>
-         <Image
-           source={{uri: ''}}
-         />
-         <Text>
-           Welcome to MELUS!
-           Find your sound! 
-         </Text>
-         <ButtonComponent title='⚙' onPress={() => null} />
-         </View>
+    <>
+      <View style={styles.header}>
+        <View>
+          {/* <Image
+            source={{ uri: '' }}
+          /> */}
+          <Text style={styles.headerText}>
+            Welcome to MELUS!
+          </Text>
+        </View>
+        <Svg
+          type='search'
+          onPress={() => {}}
+        />
+      </View>
+      <ScrollView>
         {musicGroups.map((musicGroup, index) => (
-          <MusicGroup groupId={musicGroup.id} musicGroupTitle={musicGroup.title} songs={musicGroup.songs} key={`musicGroup_${index}`} />
+          <MusicGroup setScreen={setScreen} setCurSong={setCurSong} groupId={musicGroup.id} musicGroupTitle={musicGroup.title} songs={musicGroup.songs} key={`musicGroup_${index}`} />
         ))}
-        <NavBar>
-        <ButtonComponent
-          onPress={() => null}
-          title="Home"
-        />
-        <ButtonComponent
-          onPress={() => null}
-          title="Favorites"
-        />
-        <ButtonComponent
-          onPress={() => null}
-          title="Search"
-        />
-        <ButtonComponent
-          onPress={setAuthenticationScreen}
-          title="Profile"
-        />
-      </NavBar>
-     </View>
+      </ScrollView>
+    </>
   );
 }
 
 export default Home;
 
 const styles = StyleSheet.create({
-  Home: {
-    flex: 1,
+  header: {
+    marginTop: 40,
+    marginHorizontal: 12,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
-    flexDirection: 'row'
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    height: 42,
+    paddingBottom: 8
   },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'whitesmoke'
+  }
 });

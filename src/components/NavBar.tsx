@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 interface INavBar {
     children: ReactElement[]
@@ -20,7 +20,7 @@ export default NavBar;
 const styles = StyleSheet.create({
   navBar: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'space-evenly',
     flexDirection: 'row'
   },

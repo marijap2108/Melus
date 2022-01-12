@@ -20,7 +20,7 @@ const ButtonComponent: FC<IButton> = ({
         onPress={onPress}
         disabled={disabled}
       >
-        <Text>{title}</Text>
+        <Text style={styles.inner}>{title}</Text>
       </Pressable>
   );
 }
@@ -29,25 +29,26 @@ export default ButtonComponent;
 
 const styles = StyleSheet.create({
   primary: {
-    backgroundColor: 'lightblue',
-    borderColor: 'whitesmoke',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    paddingVertical: '4px',
-    paddingHorizontal: '8px',
-    borderRadius: 4
+    backgroundColor: '#9532ce',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 4,
   },
   secondary: {
-    borderColor: 'gray',
+    borderColor: '#592f81',
     borderWidth: 1,
     borderStyle: 'solid',
-    paddingVertical: '4px',
-    paddingHorizontal: '8px',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 4
   },
   text: {
-    paddingVertical: '4px',
-    paddingHorizontal: '8px',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 4
+  },
+  inner: {
+    textAlign: 'center',
+    color: 'whitesmoke'
   }
 });

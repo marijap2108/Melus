@@ -6,10 +6,11 @@ interface ISvg {
     onPress: () => void,
     title?: string,
     selected?: boolean,
-    type: 'arrowLeft' | 'heart' | 'pause' | 'play' | 'share' | 'skipBack' | 'skipForward' | 'xCircle' | 'home' | 'profile' | 'settings' | 'search',
+    type: 'arrowLeft' | 'heart' | 'pause' | 'play' | 'share' | 'skipBack' | 'skipForward' | 'xCircle' | 'home' | 'profile' | 'settings' | 'search' | 'filledHeart',
     width?: number,
     height?: number,
-    isPlay?: boolean
+    isPlay?: boolean,
+    disabled?: boolean
 }
 
 const Svg: FC<ISvg> = ({
@@ -19,7 +20,8 @@ const Svg: FC<ISvg> = ({
     width = 24,
     height = 24,
     selected,
-    isPlay
+    isPlay,
+    disabled
 }) => {
   const svgs = {
     arrowLeft: require('../../assets/arrow-left-circle.svg'),
@@ -34,22 +36,25 @@ const Svg: FC<ISvg> = ({
     profile: require('../../assets/user.svg'),
     settings: require('../../assets/settings.svg'),
     search: require('../../assets/search.svg'),
+    filledHeart: require('../../assets/heartFilled.svg')
   }
 
   return (
       <TouchableHighlight
         underlayColor="#a73ae466"
         style={isPlay ? styles.play : styles.svg}
-        onPress={onPress}
+        onPress={!disabled ? onPress : undefined}
       >
         <>
-          <SvgUri
-            source={svgs[type]}
-            height={selected ? height + 2 : height}
-            width={selected ? width + 2 : width}
-          />
+          <View style={disabled && styles.disabled}>
+            <SvgUri
+              source={svgs[type]}
+              height={selected ? height + 2 : height}
+              width={selected ? width + 2 : width}
+            />
+          </View>
           {title && <Text style={selected ? styles.selected : styles.unselected}>{title}</Text>}
-        </>
+          </>
       </TouchableHighlight>
   );
 }
@@ -84,5 +89,8 @@ const styles = StyleSheet.create({
   },
   unselected: {
     color: 'whitesmoke'
+  },
+  disabled: {
+    opacity: 0.5,
   }
 });

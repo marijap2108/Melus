@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
 import MusicGroup from '../components/MusicGroup';
 import Svg from '../components/Svg'
 import axios from 'axios'
+import Input from '../components/Input';
 
 interface IHome {
   setScreen: (screen: string) => void,
@@ -27,6 +28,7 @@ const Home: FC<IHome> = ({
   setCurSong
 }) => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
+  const [search, setSearch] = useState(0)
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/initial`)
@@ -38,20 +40,29 @@ const Home: FC<IHome> = ({
       })
   }, [])
 
+  const handleSearch = useCallback(() => {
+    if (!search) {
+      setSearch(1)
+      return
+    }
+    setSearch(0)
+  }, [search])
+
   return (
     <>
       <View style={styles.header}>
-        <View>
-          {/* <Image
-            source={{ uri: '' }}
-          /> */}
-          <Text style={styles.headerText}>
-            Welcome to MELUS!
-          </Text>
+        <View style={styles.left}>
+          {search ?
+            <Input onBlur={handleSearch} />
+          :
+            <Text style={styles.headerText}>
+              Welcome to MELUS!
+            </Text>
+          }
         </View>
         <Svg
           type='search'
-          onPress={() => {}}
+          onPress={handleSearch}
         />
       </View>
       <ScrollView>
@@ -74,6 +85,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 42,
     paddingBottom: 8
+  },
+  left: {
+    flex: 1
   },
   headerText: {
     fontSize: 20,

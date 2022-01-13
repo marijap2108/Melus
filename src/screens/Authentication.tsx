@@ -175,7 +175,8 @@ const LogIn: FC<IStep> = ({
 					_id: response.data._id,
 					username: response.data.username,
 					email: response.data.email,
-					dateOfBirth: response.data.dateOfBirth
+					dateOfBirth: response.data.dateOfBirth,
+					favorites: response.data.favorites,
 				})
 
 				setScreen?.('home')

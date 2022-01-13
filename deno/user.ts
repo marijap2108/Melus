@@ -1,8 +1,9 @@
 import { Bson } from "https://deno.land/x/mongo@v0.29.0/mod.ts"
 import db from './mongodb.ts'
 import User from './models/User.ts'
+import Favorite from './models/Favorite.ts'
 
-db.link([User])
+db.link([User, Favorite])
 
 export const getUser = async (ctx: any) => {
   const email = ctx.request.url.searchParams.get('email')
@@ -10,8 +11,10 @@ export const getUser = async (ctx: any) => {
 
   const user = await User.where({ email: email, password: password }).first()
 
+  const favorites = await Favorite.where({userId: user._id?.toString() || ''}).all()
+
   ctx.response.status = 200
-  ctx.response.body = JSON.stringify(user)
+  ctx.response.body = JSON.stringify({...user, favorites: favorites})
 }
 
 export const postUser = async (ctx: any) => {
@@ -30,10 +33,10 @@ export const postUser = async (ctx: any) => {
 }
 
 export const putUser = async (ctx: any) => {
-  const { value } = ctx.request.body({ type: 'json' });
-  const { id, username } = await value;
+  const { value } = ctx.request.body({ type: 'json' })
+  const { id, username } = await value
 
-  User.where('_id', `${new Bson.ObjectId(id)}`).update({ username: username });
+  User.where('_id', `${new Bson.ObjectId(id)}`).update({ username: username })
 
   ctx.response.status = 202
 }

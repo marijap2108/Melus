@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import React, { useCallback, useState, useEffect } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import Authentication from './src/screens/Authentication'
+import Favorite from './src/screens/Favorite'
 import Home from './src/screens/Home'
 import Music from './src/screens/Music'
 import NavBar from './src/components/NavBar';
@@ -11,7 +12,8 @@ interface IUser {
   _id: string,
   username: string,
   email: string,
-  dateOfBirth: string
+  dateOfBirth: string,
+  favorites: string[]
 }
 
 interface ISong {
@@ -80,8 +82,9 @@ export default function App() {
       <StatusBar style="light" />
       {screen === 'authentication' && <Authentication setScreen={handleSetScreen} setUser={handleSetUser} />}
       {screen === 'home' && <Home setScreen={handleSetScreen} setCurSong={handleSetCurSong} />}
-      {screen === 'music' && curSong && <Music setScreen={handleSetScreen} setCurSong={handleSetCurSong} curSong={curSong} handlePlayStop={handlePlayStop} isPlaying={isPlaying} />}
-      {curSong && screen !== 'music' &&
+      {screen === 'music' && curSong && <Music setUser={handleSetUser} user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} curSong={curSong} handlePlayStop={handlePlayStop} isPlaying={isPlaying} />}
+      {screen === 'favorites' && user && <Favorite user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} />}
+      {curSong && screen !== 'music' && screen !== 'authentication' &&
         <View style={styles.musicBar}>
           <Image style={styles.image} source={{uri: curSong.artwork}} />
           <Text onPress={onPressSetScreen('music')} numberOfLines={1} style={styles.text}>{curSong.title}</Text>
@@ -89,6 +92,7 @@ export default function App() {
             <Svg
               onPress={() => {}}
               type='skipBack'
+              disabled={!user}
             />
             {isPlaying ?
               <Svg
@@ -104,6 +108,7 @@ export default function App() {
             <Svg
               onPress={() => {}}
               type='skipForward'
+              disabled={!user}
             />
           </View>
         </View>
@@ -117,7 +122,7 @@ export default function App() {
             selected={screen === 'home'}
           />
           <Svg
-            onPress={onPressSetScreen('favorites')}
+            onPress={onPressSetScreen(user ? 'favorites' : 'authentication')}
             type='heart'
             title="Favorites"
             selected={screen === 'favorites'}
@@ -127,6 +132,7 @@ export default function App() {
             type='settings'
             title="settings"
             selected={screen === 'settings'}
+            disabled={!user}
           />
           <Svg
             onPress={onPressSetScreen('authentication')}

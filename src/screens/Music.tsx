@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, View, Image, Text, Share } from 'react-native';
 import Svg from '../components/Svg';
@@ -7,8 +8,19 @@ interface IMusic {
   setCurSong: (curSong: ISong) => void,
   curSong: ISong,
   handlePlayStop: () => void,
-  isPlaying: boolean
+  isPlaying: boolean,
+  user: IUser | null,
+  setUser: (newUser: IUser) => void
 }
+
+interface IUser {
+  _id: string,
+  username: string,
+  email: string,
+  dateOfBirth: string,
+  favorites: string[]
+}
+
 interface ISong {
 	_id: string,
 	title: string,
@@ -17,10 +29,11 @@ interface ISong {
 	album: string,
 	duration: number
 }
+
 interface IMusicGroup {
   id: string,
   title: string,
-  songs: ISong[]
+  songs: ISong[],
 }
 
 const Music: FC<IMusic> = ({
@@ -28,9 +41,12 @@ const Music: FC<IMusic> = ({
   curSong,
   setCurSong,
   isPlaying,
-  handlePlayStop
+  handlePlayStop,
+  user,
+  setUser
 }) => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
+  const [isFavorite, setIsFavorite] = useState(user?.favorites.includes(curSong._id.toString()) || false)
 
   const setHomeScreen = useCallback (() => {
     setScreen('home')
@@ -45,6 +61,34 @@ const Music: FC<IMusic> = ({
       console.log(error.message);
     })
   }, [])
+
+  const handleFavorite = useCallback(() => {
+    if (user?.favorites.includes(curSong._id.toString())) {
+      axios.post('http://localhost:8000/api/unfavorite', {songId: curSong._id, userId: user._id})
+			.then((response) => {
+        setIsFavorite(false)
+				setUser({...user, favorites: user.favorites.filter(v => v !== curSong._id.toString())})
+			})
+			.catch((error) => {
+				console.log(error.toString())
+			})
+
+      return
+    }
+
+    if (user) {
+      axios.post('http://localhost:8000/api/favorite', {songId: curSong._id, userId: user._id})
+      .then((response) => {
+        setIsFavorite(true)
+        user.favorites.push(curSong._id.toString())
+        setUser(user)
+      })
+      .catch((error) => {
+        console.log(error.toString())
+      })
+    }
+
+  }, [user, curSong])
 
   return (
      <View style={styles.music}>
@@ -62,10 +106,17 @@ const Music: FC<IMusic> = ({
           <Text style={styles.songInfo}>{curSong.artist} - {curSong.album}</Text>
         </View>
         <View style={styles.buttons} > 
-          <Svg
-            onPress={() => {}}
-            type='heart'
-          />
+          {isFavorite ?
+            <Svg
+              onPress={handleFavorite}
+              type='filledHeart'
+            />
+          :
+            <Svg
+              onPress={handleFavorite}
+              type='heart'
+            />
+          }
           <Svg
             onPress={handleShare}
             type='share'
@@ -79,6 +130,7 @@ const Music: FC<IMusic> = ({
           <Svg
             onPress={() => {}}
             type='skipBack'
+            disabled={!user}
           />
           {isPlaying ?
             <Svg
@@ -96,6 +148,7 @@ const Music: FC<IMusic> = ({
           <Svg
             onPress={() => {}}
             type='skipForward'
+            disabled={!user}
           />
         </View>
      </View>

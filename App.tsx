@@ -5,9 +5,10 @@ import Authentication from './src/screens/Authentication'
 import Favorite from './src/screens/Favorite'
 import Home from './src/screens/Home'
 import Music from './src/screens/Music'
-import NavBar from './src/components/NavBar';
+import NavBar from './src/components/NavBar'
 import Svg from './src/components/Svg'
 import Sound from 'react-native-sound'
+import Profile from './src/screens/Profile'
 interface IUser {
   _id: string,
   username: string,
@@ -22,7 +23,8 @@ interface ISong {
 	artist: string,
 	artwork: string,
 	album: string,
-	duration: number
+	duration: number,
+  url: string,
 }
 
 Sound.setCategory('Playback');
@@ -34,19 +36,7 @@ export default function App() {
   const [curSong, setCurSong] = useState<ISong | null>(null)
   const [playingSong, setPlayingSong] = useState<Sound | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-
-  useEffect(() => {
-    const sound = new Sound('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    undefined,
-    (error: any) => {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log("Playing sound");
-       setPlayingSong(sound)
-      }
-    });
-  }, [])
+  const [songList, setSongList] = useState<ISong[]>([])
 
   const handlePlayStop = useCallback(() => {
     if (!playingSong) {
@@ -56,7 +46,11 @@ export default function App() {
       playingSong.pause()
       setIsPlaying(false)
     } else {
-      playingSong.play()
+      playingSong.play((success) => {
+        if (success) {
+          handleForward()
+        }
+      })
       setIsPlaying(true)
     }
   }, [playingSong])
@@ -67,6 +61,30 @@ export default function App() {
 
   const handleSetCurSong = useCallback((newSong) => {
     setCurSong(newSong)
+
+    playingSong?.stop()
+    setIsPlaying(false)
+
+    const sound = new Sound(newSong.url,
+    Sound.MAIN_BUNDLE,
+    (error: any) => {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log("Playing sound");
+        setIsPlaying(true)
+        sound.play((success) => {
+          if (success) {
+            handleForward()
+          }
+        })
+       setPlayingSong(sound)
+      }
+    });  
+  }, [playingSong])
+
+  const handleSetSongList = useCallback((newSongList) => {
+    setSongList(newSongList)
   }, [])
 
   const handleSetScreen = useCallback((newScreen) => {
@@ -77,20 +95,39 @@ export default function App() {
     setScreen(newScreen)
   }, [])
 
+  const handleBack = useCallback(() => {
+    const index = songList.findIndex(v => v._id === curSong?._id)
+    if (index - 1 < 0) {
+      handleSetCurSong(songList[songList.length - 1])
+      return
+    }
+    handleSetCurSong(songList[index - 1])
+  }, [handleSetCurSong, curSong, songList])
+
+  const handleForward = useCallback(() => {
+    const index = songList.findIndex(v => v._id === curSong?._id)
+    if (index + 1 >= songList.length) {
+      handleSetCurSong(songList[0])
+      return
+    }
+    handleSetCurSong(songList[index + 1])
+  }, [handleSetCurSong, curSong, songList])
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
       {screen === 'authentication' && <Authentication setScreen={handleSetScreen} setUser={handleSetUser} />}
-      {screen === 'home' && <Home setScreen={handleSetScreen} setCurSong={handleSetCurSong} />}
-      {screen === 'music' && curSong && <Music setUser={handleSetUser} user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} curSong={curSong} handlePlayStop={handlePlayStop} isPlaying={isPlaying} />}
-      {screen === 'favorites' && user && <Favorite user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} />}
+      {screen === 'home' && <Home setScreen={handleSetScreen} setCurSong={handleSetCurSong} setSongList={handleSetSongList}  />}
+      {screen === 'music' && curSong && <Music handleForward={handleForward} handleBack={handleBack} setUser={handleSetUser} user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} curSong={curSong} handlePlayStop={handlePlayStop} isPlaying={isPlaying} />}
+      {screen === 'favorites' && user && <Favorite curSong={curSong} user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} setSongList={handleSetSongList}  />}
+      {screen === 'profile' && user && <Profile setUser={handleSetUser} user={user} />}
       {curSong && screen !== 'music' && screen !== 'authentication' &&
         <View style={styles.musicBar}>
           <Image style={styles.image} source={{uri: curSong.artwork}} />
           <Text onPress={onPressSetScreen('music')} numberOfLines={1} style={styles.text}>{curSong.title}</Text>
           <View style={styles.buttons}>
             <Svg
-              onPress={() => {}}
+              onPress={handleBack}
               type='skipBack'
               disabled={!user}
             />
@@ -106,7 +143,7 @@ export default function App() {
               />
             }
             <Svg
-              onPress={() => {}}
+              onPress={handleForward}
               type='skipForward'
               disabled={!user}
             />
@@ -135,7 +172,7 @@ export default function App() {
             disabled={!user}
           />
           <Svg
-            onPress={onPressSetScreen('authentication')}
+            onPress={onPressSetScreen(user ? 'profile' : 'authentication')}
             type='profile'
             title="Profile"
             selected={screen === 'authentication'}

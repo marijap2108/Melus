@@ -16,6 +16,7 @@ interface IMusicGroup {
 	songs: ISong[],
 	setScreen: (screen: string) => void,
   setCurSong: (curSong: ISong) => void,
+	setSongList: (newSongList: ISong[]) => void
 }
 
 const MusicGroup: FC<IMusicGroup> = ({
@@ -24,9 +25,11 @@ const MusicGroup: FC<IMusicGroup> = ({
 	songs,
 	setCurSong,
 	setScreen,
+	setSongList
 }) => {
 
 	const handleSongPressed = useCallback((song) => () => {
+		setSongList(songs)
 		setCurSong(song)
 		setScreen('music')
 	}, [])

@@ -1,7 +1,7 @@
-import axios from 'axios';
-import React, { FC, useCallback, useState } from 'react';
-import { StyleSheet, View, Image, Text, Share } from 'react-native';
-import Svg from '../components/Svg';
+import axios from 'axios'
+import React, { FC, useCallback, useState } from 'react'
+import { StyleSheet, View, Image, Text, Share } from 'react-native'
+import Svg from '../components/Svg'
 
 interface IMusic {
   setScreen: (screen: string) => void,
@@ -10,7 +10,9 @@ interface IMusic {
   handlePlayStop: () => void,
   isPlaying: boolean,
   user: IUser | null,
-  setUser: (newUser: IUser) => void
+  setUser: (newUser: IUser) => void,
+  handleForward: () => void,
+  handleBack: () => void
 }
 
 interface IUser {
@@ -39,11 +41,12 @@ interface IMusicGroup {
 const Music: FC<IMusic> = ({
   setScreen,
   curSong,
-  setCurSong,
   isPlaying,
   handlePlayStop,
   user,
-  setUser
+  setUser,
+  handleForward,
+  handleBack
 }) => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
   const [isFavorite, setIsFavorite] = useState(user?.favorites.includes(curSong._id.toString()) || false)
@@ -122,13 +125,13 @@ const Music: FC<IMusic> = ({
             type='share'
           />
           <Svg
-            onPress={() => {}}
+            onPress={handleForward}
             type='xCircle'
           />
         </View>
         <View style={styles.song} > 
           <Svg
-            onPress={() => {}}
+            onPress={handleBack}
             type='skipBack'
             disabled={!user}
           />
@@ -146,16 +149,16 @@ const Music: FC<IMusic> = ({
             />
           }
           <Svg
-            onPress={() => {}}
+            onPress={handleForward}
             type='skipForward'
             disabled={!user}
           />
         </View>
      </View>
-  );
+  )
 }
 
-export default Music;
+export default Music
 
 const styles = StyleSheet.create({
   music: {

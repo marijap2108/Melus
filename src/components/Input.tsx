@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginVertical: 4,
     color: 'whitesmoke',
-    backgroundColor: '#592f8144'
+    backgroundColor: '#592f8144',
   },
   normal: {
     borderColor: 'gray',
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginVertical: 4,
     color: 'whitesmoke',
-    backgroundColor: '#592f8144'
+    backgroundColor: '#592f8144',
   }
 });

@@ -1,13 +1,13 @@
-import React, { FC, useCallback, useState, useEffect } from 'react';
-import { StyleSheet, View, Image, Text, ScrollView, FlatList, Pressable } from 'react-native';
-import MusicGroup from '../components/MusicGroup';
-import Svg from '../components/Svg'
+import React, { FC, useCallback, useState, useEffect } from 'react'
+import { StyleSheet, View, Image, Text, FlatList, Pressable } from 'react-native'
 import axios from 'axios'
 
-interface IHome {
+interface IFavorite {
   setScreen: (screen: string) => void,
   setCurSong: (curSong: ISong) => void,
-  user: IUser
+  user: IUser,
+  setSongList: (newSongList: ISong[]) => void,
+  curSong: ISong | null
 }
 
 interface IUser {
@@ -27,10 +27,12 @@ interface ISong {
   duration: number
 }
 
-const Home: FC<IHome> = ({
+const Home: FC<IFavorite> = ({
   setScreen,
   setCurSong,
-  user
+  user,
+  setSongList,
+  curSong
 }) => {
   const [songs, setSongs] = useState<ISong[]>([])
 
@@ -46,22 +48,25 @@ const Home: FC<IHome> = ({
   }, [])
 
   const handleSongPressed = useCallback((song) => () => {
+    setSongList(songs)
 		setCurSong(song)
 		setScreen('music')
-	}, [])
+	}, [songs])
 
   const renderSongs = useCallback(({ item }) => (
-		<Pressable onPress={handleSongPressed(item)} style={{marginRight: 8}} >
+		<Pressable onPress={handleSongPressed(item)} style={styles.song} >
 			<Image
 				style={styles.image}
 				source={{ uri: item.artwork }}
 			/>
-			<Text numberOfLines={1} style={styles.title}>
-				{item.title}
-			</Text>
-			<Text style={styles.artist}>
-				{item.artist}
-			</Text>
+      <View style={styles.info}>
+        <Text numberOfLines={1} style={styles.title}>
+          {item.title}
+        </Text>
+        <Text style={styles.artist}>
+          By {item.artist} - {item.album}
+        </Text>
+      </View>
 		</Pressable>
 	), [])
 
@@ -74,10 +79,10 @@ const Home: FC<IHome> = ({
       </View>
       <FlatList data={songs} renderItem={renderSongs} keyExtractor={(_item, index) => index.toString()}  />
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
 
 const styles = StyleSheet.create({
   header: {
@@ -94,15 +99,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'whitesmoke'
   },
+  song: {
+    margin: 2,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginRight: 8,
+  },
   image: {
-		width: 120,
-		height: 120,
-		borderRadius: 4
+		width: 80,
+		height: 80,
+		borderRadius: 4,
+    margin: 4
 	},
+  info: {
+    marginHorizontal: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1
+  },
 	title: {
     fontWeight: 'bold',
-		fontSize: 12,
-		width: 120,
+		fontSize: 18,
+		width: 160,
 		color: 'whitesmoke'
 	},
 	artist: {

@@ -6,7 +6,7 @@ interface ISvg {
     onPress: () => void,
     title?: string,
     selected?: boolean,
-    type: 'arrowLeft' | 'heart' | 'pause' | 'play' | 'share' | 'skipBack' | 'skipForward' | 'xCircle' | 'home' | 'profile' | 'settings' | 'search' | 'filledHeart',
+    type: 'arrowLeft' | 'heart' | 'pause' | 'play' | 'share' | 'skipBack' | 'skipForward' | 'xCircle' | 'home' | 'profile' | 'settings' | 'search' | 'filledHeart' | 'edit',
     width?: number,
     height?: number,
     isPlay?: boolean,
@@ -36,7 +36,8 @@ const Svg: FC<ISvg> = ({
     profile: require('../../assets/user.svg'),
     settings: require('../../assets/settings.svg'),
     search: require('../../assets/search.svg'),
-    filledHeart: require('../../assets/heartFilled.svg')
+    filledHeart: require('../../assets/heartFilled.svg'),
+    edit: '../../assets/edit.svg'
   }
 
   return (

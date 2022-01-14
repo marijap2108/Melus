@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { FC, useCallback, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import ButtonComponent from '../components/Button';
-import Input from '../components/Input';
+import { StatusBar } from 'expo-status-bar'
+import React, { FC, useCallback, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import ButtonComponent from '../components/Button'
+import Input from '../components/Input'
 import axios from 'axios'
 
 interface IAuthentication {

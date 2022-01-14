@@ -9,7 +9,7 @@ export const getUser = async (ctx: any) => {
   const email = ctx.request.url.searchParams.get('email')
   const password = ctx.request.url.searchParams.get('password')
 
-  const user = await User.where({ email: email, password: password }).first()
+  const user = await User.where({ email: email.toLowerCase(), password: password }).first()
 
   const favorites = await Favorite.where({userId: user._id?.toString() || ''}).all()
 
@@ -34,9 +34,15 @@ export const postUser = async (ctx: any) => {
 
 export const putUser = async (ctx: any) => {
   const { value } = ctx.request.body({ type: 'json' })
-  const { id, username } = await value
+  const { id, username, password } = await value
 
-  User.where('_id', `${new Bson.ObjectId(id)}`).update({ username: username })
+  if (username) {
+    User.where('_id', `${new Bson.ObjectId(id)}`).update({ username: username })
+  }
+
+  if (password) {
+    User.where('_id', `${new Bson.ObjectId(id)}`).update({ password: password })
+  }
 
   ctx.response.status = 202
 }

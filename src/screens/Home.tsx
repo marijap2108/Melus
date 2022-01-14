@@ -1,13 +1,14 @@
-import React, { FC, useCallback, useState, useEffect } from 'react';
-import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
-import MusicGroup from '../components/MusicGroup';
+import React, { FC, useCallback, useState, useEffect } from 'react'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
+import MusicGroup from '../components/MusicGroup'
 import Svg from '../components/Svg'
 import axios from 'axios'
-import Input from '../components/Input';
+import Input from '../components/Input'
 
 interface IHome {
   setScreen: (screen: string) => void,
-  setCurSong: (curSong: ISong) => void
+  setCurSong: (curSong: ISong) => void,
+  setSongList: (newSongList: ISong[]) => void
 }
 interface ISong {
   _id: string,
@@ -25,7 +26,8 @@ interface IMusicGroup {
 
 const Home: FC<IHome> = ({
   setScreen,
-  setCurSong
+  setCurSong,
+  setSongList
 }) => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
   const [search, setSearch] = useState(0)
@@ -49,7 +51,7 @@ const Home: FC<IHome> = ({
   }, [search])
 
   return (
-    <>
+    <View style={styles.home}>
       <View style={styles.header}>
         <View style={styles.left}>
           {search ?
@@ -67,16 +69,19 @@ const Home: FC<IHome> = ({
       </View>
       <ScrollView>
         {musicGroups.map((musicGroup, index) => (
-          <MusicGroup setScreen={setScreen} setCurSong={setCurSong} groupId={musicGroup.id} musicGroupTitle={musicGroup.title} songs={musicGroup.songs} key={`musicGroup_${index}`} />
+          <MusicGroup setSongList={setSongList} setScreen={setScreen} setCurSong={setCurSong} groupId={musicGroup.id} musicGroupTitle={musicGroup.title} songs={musicGroup.songs} key={`musicGroup_${index}`} />
         ))}
       </ScrollView>
-    </>
-  );
+    </View>
+  )
 }
 
-export default Home;
+export default Home
 
 const styles = StyleSheet.create({
+  home: {
+    flex: 1
+  },
   header: {
     marginTop: 40,
     marginHorizontal: 12,

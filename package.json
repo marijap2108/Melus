@@ -11,6 +11,7 @@
     "deno": "deno run --allow-all deno/index.ts"
   },
   "dependencies": {
+    "@react-native-community/slider": "^4.1.12",
     "axios": "^0.24.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "expo": "~43.0.2",

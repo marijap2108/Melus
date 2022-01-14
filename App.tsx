@@ -13,7 +13,6 @@ interface IUser {
   _id: string,
   username: string,
   email: string,
-  dateOfBirth: string,
   favorites: string[]
 }
 
@@ -37,6 +36,7 @@ export default function App() {
   const [playingSong, setPlayingSong] = useState<Sound | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [songList, setSongList] = useState<ISong[]>([])
+  const [next, setNext] = useState(false)
 
   const handlePlayStop = useCallback(() => {
     if (!playingSong) {
@@ -48,7 +48,7 @@ export default function App() {
     } else {
       playingSong.play((success) => {
         if (success) {
-          handleForward()
+          setNext(true)
         }
       })
       setIsPlaying(true)
@@ -75,7 +75,7 @@ export default function App() {
         setIsPlaying(true)
         sound.play((success) => {
           if (success) {
-            handleForward()
+            setNext(true)
           }
         })
        setPlayingSong(sound)
@@ -113,6 +113,14 @@ export default function App() {
     handleSetCurSong(songList[index + 1])
   }, [handleSetCurSong, curSong, songList])
 
+  useEffect(()=>{
+    if (next) {
+      console.log('uso')
+      setNext(false)
+      handleForward()
+    }
+  }, [next, handleForward])
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
@@ -120,7 +128,7 @@ export default function App() {
       {screen === 'home' && <Home setScreen={handleSetScreen} setCurSong={handleSetCurSong} setSongList={handleSetSongList}  />}
       {screen === 'music' && curSong && <Music handleForward={handleForward} handleBack={handleBack} setUser={handleSetUser} user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} curSong={curSong} handlePlayStop={handlePlayStop} isPlaying={isPlaying} />}
       {screen === 'favorites' && user && <Favorite curSong={curSong} user={user} setScreen={handleSetScreen} setCurSong={handleSetCurSong} setSongList={handleSetSongList}  />}
-      {screen === 'profile' && user && <Profile setUser={handleSetUser} user={user} />}
+      {screen === 'profile' && user && <Profile setScreen={handleSetScreen} setUser={handleSetUser} user={user} />}
       {curSong && screen !== 'music' && screen !== 'authentication' &&
         <View style={styles.musicBar}>
           <Image style={styles.image} source={{uri: curSong.artwork}} />
@@ -163,13 +171,6 @@ export default function App() {
             type='heart'
             title="Favorites"
             selected={screen === 'favorites'}
-          />
-          <Svg
-            onPress={onPressSetScreen('settings')}
-            type='settings'
-            title="settings"
-            selected={screen === 'settings'}
-            disabled={!user}
           />
           <Svg
             onPress={onPressSetScreen(user ? 'profile' : 'authentication')}

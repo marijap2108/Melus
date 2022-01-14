@@ -15,7 +15,22 @@
 		85167ADE27916A6900DECC50 /* BetterNow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167ADA27916A6900DECC50 /* BetterNow.mp3 */; };
 		85167ADF27916A6900DECC50 /* Sunflower.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167ADB27916A6900DECC50 /* Sunflower.mp3 */; };
 		85167AE027916A6900DECC50 /* Goodbyes.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167ADC27916A6900DECC50 /* Goodbyes.mp3 */; };
-		8573EFDC278EFFEE00177458 /* Circles.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8573EFDB278EFFEE00177458 /* Circles.mp3 */; };
+		85167AE62791D3DE00DECC50 /* WhateverItTakes.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AE12791D3DD00DECC50 /* WhateverItTakes.mp3 */; };
+		85167AE72791D3DE00DECC50 /* BadLiar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AE22791D3DE00DECC50 /* BadLiar.mp3 */; };
+		85167AE82791D3DE00DECC50 /* Natural.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AE32791D3DE00DECC50 /* Natural.mp3 */; };
+		85167AE92791D3DE00DECC50 /* Radioactive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AE42791D3DE00DECC50 /* Radioactive.mp3 */; };
+		85167AEA2791D3DE00DECC50 /* Demons.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AE52791D3DE00DECC50 /* Demons.mp3 */; };
+		85167AEF2791DBDC00DECC50 /* WakaWaka.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AEB2791DBDC00DECC50 /* WakaWaka.mp3 */; };
+		85167AF02791DBDC00DECC50 /* MeEnamore.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AEC2791DBDC00DECC50 /* MeEnamore.mp3 */; };
+		85167AF12791DBDC00DECC50 /* WheneverWherever.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AED2791DBDC00DECC50 /* WheneverWherever.mp3 */; };
+		85167AF22791DBDC00DECC50 /* Chantaje.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AEE2791DBDC00DECC50 /* Chantaje.mp3 */; };
+		85167AF42791DBE400DECC50 /* HipsDontLie.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AF32791DBE400DECC50 /* HipsDontLie.mp3 */; };
+		85167AFA2791EA2900DECC50 /* IntoYou.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AF52791EA2800DECC50 /* IntoYou.mp3 */; };
+		85167AFB2791EA2900DECC50 /* 7Rings.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AF62791EA2800DECC50 /* 7Rings.mp3 */; };
+		85167AFC2791EA2900DECC50 /* ThankUNext.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AF72791EA2800DECC50 /* ThankUNext.mp3 */; };
+		85167AFD2791EA2900DECC50 /* SideToSide.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AF82791EA2800DECC50 /* SideToSide.mp3 */; };
+		85167AFE2791EA2900DECC50 /* DangerousWoman.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AF92791EA2900DECC50 /* DangerousWoman.mp3 */; };
+		85167B002791EFA500DECC50 /* Circles.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85167AFF2791EFA500DECC50 /* Circles.mp3 */; };
 		8CF3093CFC1C44C7A72689F6 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C6F98531FC460C8A750374 /* noop-file.swift */; };
 		96905EF65AED1B983A6B3ABC /* libPods-Melus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Melus.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
@@ -37,7 +52,22 @@
 		85167ADA27916A6900DECC50 /* BetterNow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = BetterNow.mp3; path = ../../../../Downloads/BetterNow.mp3; sourceTree = "<group>"; };
 		85167ADB27916A6900DECC50 /* Sunflower.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Sunflower.mp3; path = ../../../../Downloads/Sunflower.mp3; sourceTree = "<group>"; };
 		85167ADC27916A6900DECC50 /* Goodbyes.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Goodbyes.mp3; path = ../../../../Downloads/Goodbyes.mp3; sourceTree = "<group>"; };
-		8573EFDB278EFFEE00177458 /* Circles.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Circles.mp3; path = ../Circles.mp3; sourceTree = "<group>"; };
+		85167AE12791D3DD00DECC50 /* WhateverItTakes.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = WhateverItTakes.mp3; path = ../../../../Downloads/WhateverItTakes.mp3; sourceTree = "<group>"; };
+		85167AE22791D3DE00DECC50 /* BadLiar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = BadLiar.mp3; path = ../../../../Downloads/BadLiar.mp3; sourceTree = "<group>"; };
+		85167AE32791D3DE00DECC50 /* Natural.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Natural.mp3; path = ../../../../Downloads/Natural.mp3; sourceTree = "<group>"; };
+		85167AE42791D3DE00DECC50 /* Radioactive.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Radioactive.mp3; path = ../../../../Downloads/Radioactive.mp3; sourceTree = "<group>"; };
+		85167AE52791D3DE00DECC50 /* Demons.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Demons.mp3; path = ../../../../Downloads/Demons.mp3; sourceTree = "<group>"; };
+		85167AEB2791DBDC00DECC50 /* WakaWaka.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = WakaWaka.mp3; path = ../../../../Downloads/WakaWaka.mp3; sourceTree = "<group>"; };
+		85167AEC2791DBDC00DECC50 /* MeEnamore.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = MeEnamore.mp3; path = ../../../../Downloads/MeEnamore.mp3; sourceTree = "<group>"; };
+		85167AED2791DBDC00DECC50 /* WheneverWherever.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = WheneverWherever.mp3; path = ../../../../Downloads/WheneverWherever.mp3; sourceTree = "<group>"; };
+		85167AEE2791DBDC00DECC50 /* Chantaje.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Chantaje.mp3; path = ../../../../Downloads/Chantaje.mp3; sourceTree = "<group>"; };
+		85167AF32791DBE400DECC50 /* HipsDontLie.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = HipsDontLie.mp3; path = ../../../../Downloads/HipsDontLie.mp3; sourceTree = "<group>"; };
+		85167AF52791EA2800DECC50 /* IntoYou.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = IntoYou.mp3; path = ../../../../Downloads/IntoYou.mp3; sourceTree = "<group>"; };
+		85167AF62791EA2800DECC50 /* 7Rings.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 7Rings.mp3; path = ../../../../Downloads/7Rings.mp3; sourceTree = "<group>"; };
+		85167AF72791EA2800DECC50 /* ThankUNext.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ThankUNext.mp3; path = ../../../../Downloads/ThankUNext.mp3; sourceTree = "<group>"; };
+		85167AF82791EA2800DECC50 /* SideToSide.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = SideToSide.mp3; path = ../../../../Downloads/SideToSide.mp3; sourceTree = "<group>"; };
+		85167AF92791EA2900DECC50 /* DangerousWoman.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = DangerousWoman.mp3; path = ../../../../Downloads/DangerousWoman.mp3; sourceTree = "<group>"; };
+		85167AFF2791EFA500DECC50 /* Circles.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Circles.mp3; path = ../../../../Downloads/Circles.mp3; sourceTree = "<group>"; };
 		952FDC1CE5524E3F824D1375 /* Melus-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Melus-Bridging-Header.h"; path = "Melus/Melus-Bridging-Header.h"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Melus/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
@@ -94,11 +124,26 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				85167AE22791D3DE00DECC50 /* BadLiar.mp3 */,
+				85167AE52791D3DE00DECC50 /* Demons.mp3 */,
+				85167AEE2791DBDC00DECC50 /* Chantaje.mp3 */,
+				85167AEC2791DBDC00DECC50 /* MeEnamore.mp3 */,
+				85167AEB2791DBDC00DECC50 /* WakaWaka.mp3 */,
+				85167AFF2791EFA500DECC50 /* Circles.mp3 */,
+				85167AF62791EA2800DECC50 /* 7Rings.mp3 */,
+				85167AF92791EA2900DECC50 /* DangerousWoman.mp3 */,
+				85167AF52791EA2800DECC50 /* IntoYou.mp3 */,
+				85167AF82791EA2800DECC50 /* SideToSide.mp3 */,
+				85167AF72791EA2800DECC50 /* ThankUNext.mp3 */,
+				85167AED2791DBDC00DECC50 /* WheneverWherever.mp3 */,
+				85167AE32791D3DE00DECC50 /* Natural.mp3 */,
+				85167AE42791D3DE00DECC50 /* Radioactive.mp3 */,
+				85167AF32791DBE400DECC50 /* HipsDontLie.mp3 */,
+				85167AE12791D3DD00DECC50 /* WhateverItTakes.mp3 */,
 				85167ADA27916A6900DECC50 /* BetterNow.mp3 */,
 				85167ADC27916A6900DECC50 /* Goodbyes.mp3 */,
 				85167AD927916A6900DECC50 /* Rockstar.mp3 */,
 				85167ADB27916A6900DECC50 /* Sunflower.mp3 */,
-				8573EFDB278EFFEE00177458 /* Circles.mp3 */,
 				13B07FAE1A68108700A75B9A /* Melus */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -214,14 +259,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85167B002791EFA500DECC50 /* Circles.mp3 in Resources */,
+				85167AEF2791DBDC00DECC50 /* WakaWaka.mp3 in Resources */,
+				85167AE82791D3DE00DECC50 /* Natural.mp3 in Resources */,
+				85167AE72791D3DE00DECC50 /* BadLiar.mp3 in Resources */,
 				85167ADF27916A6900DECC50 /* Sunflower.mp3 in Resources */,
+				85167AE62791D3DE00DECC50 /* WhateverItTakes.mp3 in Resources */,
+				85167AFC2791EA2900DECC50 /* ThankUNext.mp3 in Resources */,
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				85167AFB2791EA2900DECC50 /* 7Rings.mp3 in Resources */,
+				85167AFE2791EA2900DECC50 /* DangerousWoman.mp3 in Resources */,
+				85167AF22791DBDC00DECC50 /* Chantaje.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				8573EFDC278EFFEE00177458 /* Circles.mp3 in Resources */,
 				85167ADE27916A6900DECC50 /* BetterNow.mp3 in Resources */,
+				85167AE92791D3DE00DECC50 /* Radioactive.mp3 in Resources */,
 				85167ADD27916A6900DECC50 /* Rockstar.mp3 in Resources */,
 				85167AE027916A6900DECC50 /* Goodbyes.mp3 in Resources */,
+				85167AF02791DBDC00DECC50 /* MeEnamore.mp3 in Resources */,
+				85167AF42791DBE400DECC50 /* HipsDontLie.mp3 in Resources */,
+				85167AFA2791EA2900DECC50 /* IntoYou.mp3 in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
+				85167AFD2791EA2900DECC50 /* SideToSide.mp3 in Resources */,
+				85167AF12791DBDC00DECC50 /* WheneverWherever.mp3 in Resources */,
+				85167AEA2791D3DE00DECC50 /* Demons.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

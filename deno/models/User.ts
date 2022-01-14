@@ -11,7 +11,6 @@ export default class User extends Model {
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    dateOfBirth: DataTypes.TIMESTAMP,
     favorites: DataTypes.JSON
   };
 

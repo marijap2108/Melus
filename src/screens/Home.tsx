@@ -30,7 +30,8 @@ const Home: FC<IHome> = ({
   setSongList
 }) => {
   const [musicGroups, setMusicGroups] = useState<IMusicGroup[]>([])
-  const [search, setSearch] = useState(0)
+  const [search, setSearch] = useState(false)
+  const [form, setForm] = useState('')
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/initial`)
@@ -42,20 +43,32 @@ const Home: FC<IHome> = ({
       })
   }, [])
 
+  const handleOnChange = useCallback((text) => {
+    setForm(text)
+  }, [])
+
   const handleSearch = useCallback(() => {
-    if (!search) {
-      setSearch(1)
-      return
+    if (search && form) {
+      axios.get(`http://localhost:8000/api/songs?value=${form}`)
+      .then((response) => {
+        if (response.data[0]) {
+          setCurSong(response.data[0])
+          setScreen('music')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
-    setSearch(0)
-  }, [search])
+    setSearch(!search)
+  }, [form, search])
 
   return (
     <View style={styles.home}>
       <View style={styles.header}>
         <View style={styles.left}>
           {search ?
-            <Input onBlur={handleSearch} />
+            <Input onChangeText={handleOnChange} onBlur={handleSearch} />
           :
             <Text style={styles.headerText}>
               Welcome to MELUS!

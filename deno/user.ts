@@ -19,13 +19,20 @@ export const getUser = async (ctx: any) => {
 
 export const postUser = async (ctx: any) => {
   const { value } = ctx.request.body({ type: 'json' });
-  const { username, email, password, dateOfBirth } = await value;
+  const { username, email, password } = await value;
+
+  const check = await User.where({ email: email.toLowerCase() }).count()
+
+  if (check) {
+    ctx.response.status = 200
+    ctx.response.body = JSON.stringify({error: 'Email already taken'})
+    return
+  }
 
   const user = new User()
   user.username = username
-  user.email = email
+  user.email = email.toLowerCase()
   user.password = password
-  user.dateOfBirth = parseInt(dateOfBirth)
   await user.save();
 
   ctx.response.status = 200

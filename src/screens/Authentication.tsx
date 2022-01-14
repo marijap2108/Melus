@@ -70,7 +70,6 @@ const SignUp: FC<IStep> = ({
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 	const [form, setFrom] = useState({
 		username: '',
-		dateOfBirth: '',
 		email: '',
 		password: ''
 	})
@@ -80,7 +79,7 @@ const SignUp: FC<IStep> = ({
 	}, [])
 
 	const postUser = useCallback(() => {
-		if (!form.username || !form.email || !form.dateOfBirth || !form.password) {
+		if (!form.username || !form.email || !form.password) {
 			setErrorMessage('All fields must be filled!')
 			return
 		}
@@ -92,11 +91,14 @@ const SignUp: FC<IStep> = ({
 
 		axios.post('http://localhost:8000/api/user', form)
 			.then((response) => {
+				if (response.data.error) {
+					setErrorMessage(response.data.error)
+					return
+				}
 				setUser?.({
 					_id: response.data._id as string,
 					username: response.data.username as string,
 					email: response.data.email as string,
-					dateOfBirth: response.data.dateOfBirth as string
 				})
 
 				setScreen?.('home')
@@ -113,10 +115,6 @@ const SignUp: FC<IStep> = ({
 				<View style={styles.formElement}>
 					<Text style={styles.label} >Username:</Text>
 					<Input isError={errorMessage && !form.username} defaultValue={form.username} onChangeText={handleChange('username')} />
-				</View>
-				<View style={styles.formElement}>
-					<Text style={styles.label} >Date of birth:</Text>
-					<Input isError={errorMessage && !form.dateOfBirth} defaultValue={form.dateOfBirth} onChangeText={handleChange('dateOfBirth')} />
 				</View>
 				<View style={styles.formElement}>
 					<Text style={styles.label} >E-mail:</Text>
@@ -175,7 +173,6 @@ const LogIn: FC<IStep> = ({
 					_id: response.data._id,
 					username: response.data.username,
 					email: response.data.email,
-					dateOfBirth: response.data.dateOfBirth,
 					favorites: response.data.favorites,
 				})
 
@@ -246,6 +243,6 @@ const styles = StyleSheet.create({
 	error: {
 		color: 'red',
 		position: 'absolute',
-		bottom: -18
+		bottom: -24
 	}
 });

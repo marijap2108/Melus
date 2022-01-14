@@ -14,7 +14,6 @@ interface IUser {
   _id: string,
   username: string,
   email: string,
-  dateOfBirth: string,
   favorites: string[]
 }
 
@@ -40,7 +39,6 @@ const Home: FC<IFavorite> = ({
     axios.get(`http://localhost:8000/api/songs/favorite?id=${user._id}`)
       .then((response) => {
         setSongs(response.data)
-        console.log(response)
       })
       .catch((error) => {
         console.log(error)

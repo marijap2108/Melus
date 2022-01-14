@@ -37,7 +37,7 @@ const Svg: FC<ISvg> = ({
     settings: require('../../assets/settings.svg'),
     search: require('../../assets/search.svg'),
     filledHeart: require('../../assets/heartFilled.svg'),
-    edit: '../../assets/edit.svg'
+    edit: require('../../assets/edit.svg')
   }
 
   return (

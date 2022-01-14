@@ -3,7 +3,6 @@ import Favorite from './models/Favorite.ts'
 
 db.link([Favorite])
 
-
 export const favoriteSong = async (ctx:any) => {
   const { value } = ctx.request.body({ type: 'json' });
   const { userId, songId } = await value;

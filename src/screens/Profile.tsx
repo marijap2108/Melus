@@ -6,21 +6,22 @@ import Input from '../components/Input'
 import Svg from '../components/Svg'
 
 interface IProfile {
-  setUser: (user: IUser) => void,
-  user: IUser
+  setUser: (user: IUser | null) => void,
+  user: IUser,
+  setScreen: (newScreen: string) => void
 }
 
 interface IUser {
   _id: string,
   username: string,
   email: string,
-  dateOfBirth: string,
   favorites: string[]
 }
 
 const Profile: FC<IProfile> = ({
   setUser,
-  user
+  user,
+  setScreen
 }) => {
 
   const [editable, setEditable] = useState({ username: false, password: false })
@@ -56,7 +57,12 @@ const Profile: FC<IProfile> = ({
 			.catch((error) => {
 				console.log(error)
 			})
-  }, [form, user])
+  }, [form, user, setUser])
+
+  const handleLogOut = useCallback(() => {
+    setScreen('home')
+    setUser(null)
+  }, [setScreen, setUser])
 
   return (
     <View style={styles.profile}>
@@ -69,15 +75,16 @@ const Profile: FC<IProfile> = ({
         {editable.username ?
           <>
             <Text style={styles.text}>
-              Username:
+              Username: 
             </Text>
-            <Input onChangeText={handleChangeText('username')} defaultValue={form.username} />
+            <View style={styles.input}>
+              <Input onChangeText={handleChangeText('username')} defaultValue={form.username} />
+            </View>
           </>
 
           :
           <Text style={styles.text}>
-            Username:
-            {user.username}
+            Username: {user.username}
           </Text>
         }
         <Svg type='edit' onPress={handleEdit('username')} />
@@ -88,17 +95,14 @@ const Profile: FC<IProfile> = ({
         </Text>
       </View>
       <View style={styles.field}>
-        <Text style={styles.text}>
-          Date of birth: {(new Date(user.dateOfBirth)).toLocaleDateString("en-US")}
-        </Text>
-      </View>
-      <View style={styles.field}>
         {editable.password ?
           <>
             <Text style={styles.text}>
               Set new password
             </Text>
-            <Input onChangeText={handleChangeText('password')} defaultValue={form.password} secureTextEntry />
+            <View style={styles.input}>
+              <Input onChangeText={handleChangeText('password')} defaultValue={form.password} secureTextEntry />
+            </View>
           </>
           :
           <Text style={styles.text}>
@@ -113,6 +117,7 @@ const Profile: FC<IProfile> = ({
           :
           editable.username && <ButtonComponent title='Submit' onPress={handleSubmit} /> 
         }
+        <ButtonComponent title='Log out' onPress={handleLogOut} />
       </View>
     </View>
   )
@@ -146,16 +151,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: 24,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 12,
+    marginVertical: 12,
+    backgroundColor: '#28193c',
+    shadowColor: "#a73ae4",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 4,
+    elevation: 4,
   },
   text: {
     color: 'whitesmoke',
     fontSize: 16,
     paddingVertical: 18,
-    marginHorizontal: 12
+    marginHorizontal: 12,
+  },
+  input: {
+    flex: 1
   },
   footer: {
     marginTop: 48,
+    height: 120,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-between'
   }
 });

@@ -19,7 +19,6 @@ interface IUser {
   _id: string,
   username: string,
   email: string,
-  dateOfBirth: string,
   favorites: string[]
 }
 
@@ -118,6 +117,7 @@ const Music: FC<IMusic> = ({
             <Svg
               onPress={handleFavorite}
               type='heart'
+              disabled={!user}
             />
           }
           <Svg

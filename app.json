@@ -4,9 +4,9 @@
     "slug": "Melus",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/music-app-icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/music-app-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,17 +18,18 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ios.json"
+      "bundleIdentifier": "ios.json",
+      "foregroundImage": "./assets/music-app-icon.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/music-app-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "andoid.json"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/music-app-icon.png"
     }
   }
 }

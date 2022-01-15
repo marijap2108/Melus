@@ -99,6 +99,7 @@ const SignUp: FC<IStep> = ({
 					_id: response.data._id as string,
 					username: response.data.username as string,
 					email: response.data.email as string,
+					favorites: []
 				})
 
 				setScreen?.('home')

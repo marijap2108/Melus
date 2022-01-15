@@ -36,7 +36,7 @@ export const postUser = async (ctx: any) => {
   await user.save();
 
   ctx.response.status = 200
-  ctx.response.body = JSON.stringify(user)
+  ctx.response.body = JSON.stringify({...user})
 }
 
 export const putUser = async (ctx: any) => {

@@ -9,6 +9,7 @@ import NavBar from './src/components/NavBar'
 import Svg from './src/components/Svg'
 import Sound from 'react-native-sound'
 import Profile from './src/screens/Profile'
+
 interface IUser {
   _id: string,
   username: string,
